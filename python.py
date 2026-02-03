@@ -19,6 +19,14 @@ users = {
 @app.route('/')
 @app.route('/login', methods=['GET'])
 def index():
+    """Открывает страницу логина или перенаправляет, если сессия активна"""
+    if 'user_role' in session:
+        if session['user_role'] == 'student':
+            return redirect(url_for('student_page'))
+        elif session['user_role'] == 'mentor':
+            return redirect(url_for('mentor_page'))
+
+    # Если сессии нет, показываем форму входа
     return render_template('login.html')
 
 
@@ -69,6 +77,7 @@ def login():
         return jsonify({"status": "success", "role": role}), 200
 
     return jsonify({"status": "error", "message": "Wrong credentials"}), 401
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
