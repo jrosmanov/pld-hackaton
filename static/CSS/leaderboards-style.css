@@ -183,6 +183,18 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
+.leaderboard-separator {
+    text-align: center;
+    color: var(--text-gray);
+    padding: 8px 0;
+    font-size: 0.9rem;
+}
+
+.current-user-highlight {
+    background-color: rgba(233, 30, 99, 0.12);
+    color: var(--text-white);
+}
+
 .star-decor {
     position: fixed;
     bottom: 30px;

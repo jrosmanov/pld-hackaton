@@ -39,6 +39,10 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
 }
 
 .leaderboards-link {
@@ -51,6 +55,24 @@ body {
 
 .leaderboards-link:hover {
     opacity: 0.8;
+}
+
+.logout-btn {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: transparent;
+    color: var(--text-gray);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    color: white;
+    border-color: white;
 }
 
 .action-buttons {
@@ -205,6 +227,15 @@ body {
     font-size: 0.95rem;
 }
 
+.pld-item select {
+    flex: 1;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+
 .pld-remove {
     border: 1px solid #e91e63;
     background-color: transparent;
@@ -275,12 +306,35 @@ body {
 /* Футер формы */
 .pld-actions {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pld-primary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+.pld-reset {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: var(--text-white);
+}
+
+.pld-clear {
+    border-color: #ff8a80;
+    color: #ff8a80;
+}
+
+
+.pld-summary {
+    color: var(--text-gray);
+    font-size: 0.95rem;
 }
 
 .pld-save {
@@ -306,6 +360,12 @@ body {
     font-style: italic;
 }
 
+.pld-error {
+    border: 1px solid var(--hbtn-red);
+    border-radius: 8px;
+    padding: 6px;
+}
+
 /* Звезда декоративная */
 .star-decor {
     position: fixed;
@@ -321,5 +381,6 @@ body {
 @media (max-width: 768px) {
     .portal-card { padding: 32px 20px; }
     .portal-header h1 { font-size: 1.5rem; }
-    .pld-actions { flex-direction: column; text-align: center; }
+    .pld-actions { text-align: left; }
+    .section-title { flex-direction: column; gap: 8px; }
 }

@@ -5,13 +5,6 @@
             "email": "12734@hbtn.com",
             "program": "FS"
         },
-        "last_pld": {
-            "date": "2026-02-03",
-            "topic": "Salam",
-            "grades": {
-                "sagol": 10
-            }
-        },
         "history": {
             "Python Basics": 8,
             "SQL Databases": 7,
@@ -19,12 +12,162 @@
             "C ++ FUndamentals": 9.5,
             "Telebot": 8.0,
             "ORM": 9.3,
-            "Salam": 10.0
+            "Salam": 10.0,
+            "TEST1": 10.0,
+            "DUPLICATE-TEST": 10.0,
+            "OOP": 8.3,
+            "oop": 10.0
         },
         "stats": {
-            "total_plds": 7,
-            "avg_score": 8.7
-        }
+            "total_plds": 18,
+            "avg_score": 9.3
+        },
+        "last_pld": {
+            "date": "2026-02-03",
+            "topic": "oop",
+            "grades": {
+                "1": 10,
+                "2": 10
+            },
+            "avg": 10.0
+        },
+        "history_list": [
+            {
+                "date": null,
+                "topic": "Python Basics",
+                "avg": 8,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "SQL Databases",
+                "avg": 7,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Advanced JS",
+                "avg": 9,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "C ++ FUndamentals",
+                "avg": 9.5,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Telebot",
+                "avg": 8.0,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "ORM",
+                "avg": 9.3,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Salam",
+                "avg": 10.0,
+                "grades": {}
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "avg": 10.0,
+                "grades": {
+                    "TEST2": 10
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 10
+                },
+                "avg": 10.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "DUPLICATE-TEST",
+                "avg": 10.0,
+                "grades": {
+                    "TEST3": 10
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "avg": 8.3,
+                "grades": {
+                    "ij": 0,
+                    "jj": 0,
+                    "jij": 0
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "grades": {
+                    "ij": 8.0,
+                    "jj": 10,
+                    "jij": 7.0
+                },
+                "avg": 8.3
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "oop",
+                "avg": 10.0,
+                "grades": {
+                    "1": 10,
+                    "2": 10
+                }
+            }
+        ]
     },
     "11223": {
         "profile": {
@@ -33,25 +176,91 @@
             "program": "Machine Learning"
         },
         "last_pld": {
-            "date": "2026-02-02",
-            "topic": "Numpy & Pandas",
+            "date": "2026-02-03",
+            "topic": "oop",
             "grades": {
-                "How do you create a NumPy array from a Python list?": 10,
-                "What is the difference between a Pandas Series and a DataFrame?": 10,
-                "How can you select specific rows or columns from a DataFrame?": 9,
-                "What is the purpose of vectorization in NumPy?": 10,
-                "How do you handle missing data in Pandas?": 0
-            }
+                "1": 8.0,
+                "2": 7.0
+            },
+            "avg": 7.5
         },
         "history": {
             "Python Intro": 10,
             "Statistics": 9.5,
-            "Linear Algebra": 9
+            "Linear Algebra": 9,
+            "TEST1": 8.0,
+            "OOP": 8.7,
+            "oop": 7.5
         },
         "stats": {
-            "total_plds": 15,
-            "avg_score": 9.8
-        }
+            "total_plds": 8,
+            "avg_score": 7.9
+        },
+        "history_list": [
+            {
+                "date": null,
+                "topic": "Python Intro",
+                "avg": 10,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Statistics",
+                "avg": 9.5,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Linear Algebra",
+                "avg": 9,
+                "grades": {}
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "avg": 8.0,
+                "grades": {
+                    "TEST2": 8.0
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "TEST1",
+                "grades": {
+                    "TEST2": 8.0
+                },
+                "avg": 8.0
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "avg": 2.3,
+                "grades": {
+                    "ij": 7.0,
+                    "jj": 0,
+                    "jij": 0
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "grades": {
+                    "ij": 7.0,
+                    "jj": 10,
+                    "jij": 9.0
+                },
+                "avg": 8.7
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "oop",
+                "avg": 7.5,
+                "grades": {
+                    "1": 8.0,
+                    "2": 7.0
+                }
+            }
+        ]
     },
     "44556": {
         "profile": {
@@ -60,23 +269,51 @@
             "program": "Front-end"
         },
         "last_pld": {
-            "date": "2026-01-25",
-            "topic": "HTML & CSS Basics",
+            "date": "2026-02-03",
+            "topic": "OOP",
             "grades": {
-                "What is the difference between an ID and a class in HTML/CSS?": 5,
-                "How do you include an external CSS file in an HTML document?": 6,
-                "What is the difference between inline, internal, and external CSS?": 4,
-                "How can you center a div horizontally and vertically using CSS?": 5,
-                "What are semantic HTML elements and why are they important?": 5
-            }
+                "ij": 8.0,
+                "jj": 10,
+                "jij": 7.0
+            },
+            "avg": 8.3
         },
         "history": {
-            "Internet Fundamentals": 7
+            "Internet Fundamentals": 7,
+            "OOP": 8.3
         },
         "stats": {
-            "total_plds": 2,
-            "avg_score": 6.2
-        }
+            "total_plds": 3,
+            "avg_score": 7.9
+        },
+        "history_list": [
+            {
+                "date": null,
+                "topic": "Internet Fundamentals",
+                "avg": 7,
+                "grades": {}
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "avg": 8.3,
+                "grades": {
+                    "ij": 0,
+                    "jj": 0,
+                    "jij": 0
+                }
+            },
+            {
+                "date": "2026-02-03",
+                "topic": "OOP",
+                "grades": {
+                    "ij": 8.0,
+                    "jj": 10,
+                    "jij": 7.0
+                },
+                "avg": 8.3
+            }
+        ]
     },
     "77889": {
         "profile": {

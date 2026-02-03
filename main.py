@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 from flask_cors import CORS
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 
 app = Flask(__name__)
@@ -19,6 +19,98 @@ users = {
     '99999': {"email": "99999@hbtn.com", "password": "123", "role": "mentor"}
 
 }
+
+def parse_date(value):
+    if not value:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    try:
+        return datetime.fromisoformat(str(value).replace('Z', '+00:00')).date()
+    except ValueError:
+        try:
+            return datetime.strptime(str(value), "%Y-%m-%d").date()
+        except ValueError:
+            return None
+
+
+def normalize_date(value):
+    parsed = parse_date(value)
+    if parsed:
+        return parsed.isoformat()
+    return datetime.utcnow().date().isoformat()
+
+
+def compute_avg(grades):
+    if not grades:
+        return 0.0
+    values = []
+    for val in grades.values():
+        try:
+            values.append(float(val))
+        except (TypeError, ValueError):
+            values.append(0.0)
+    return round(sum(values) / len(values), 1) if values else 0.0
+
+
+def ensure_history_list(student):
+    if 'history_list' not in student or not isinstance(student['history_list'], list):
+        student['history_list'] = []
+    if not student['history_list'] and isinstance(student.get('history'), dict):
+        for topic, avg in student['history'].items():
+            student['history_list'].append({
+                "date": None,
+                "topic": topic,
+                "avg": avg,
+                "grades": {}
+            })
+    last_pld = student.get('last_pld')
+    if last_pld and last_pld.get('topic'):
+        last_topic = last_pld.get('topic')
+        last_date = last_pld.get('date')
+        updated = False
+        for entry in student['history_list']:
+            if entry.get('topic') == last_topic and entry.get('date') in (None, last_date):
+                entry['date'] = entry.get('date') or last_date
+                entry['grades'] = entry.get('grades') or last_pld.get('grades', {})
+                entry['avg'] = entry.get('avg') or last_pld.get('avg') or compute_avg(last_pld.get('grades', {}))
+                updated = True
+                break
+        if not updated:
+            student['history_list'].append({
+                "date": last_date,
+                "topic": last_topic,
+                "avg": last_pld.get('avg') or compute_avg(last_pld.get('grades', {})),
+                "grades": last_pld.get('grades', {})
+            })
+    return student['history_list']
+
+
+def rebuild_history_map(student):
+    history_list = ensure_history_list(student)
+    history = {}
+    for entry in history_list:
+        topic = entry.get('topic')
+        avg = entry.get('avg')
+        if topic:
+            history[topic] = avg
+    student['history'] = history
+
+
+def rebuild_stats(student):
+    history_list = ensure_history_list(student)
+    averages = [float(entry.get('avg') or 0) for entry in history_list]
+    total = len(averages)
+    student['stats'] = {
+        "total_plds": total,
+        "avg_score": round(sum(averages) / total, 1) if total else 0
+    }
+
+
+def grades_signature(grades):
+    if not grades:
+        return ""
+    return "|".join(f"{k}:{grades[k]}" for k in sorted(grades))
 
 
 # --- СТРАНИЦЫ ---
@@ -100,9 +192,12 @@ def get_last_pld():
             user_data = db_users.get(user_id)
 
             if user_data and 'last_pld' in user_data:
-                return jsonify(user_data['last_pld'])
+                last_pld = user_data['last_pld']
+                if 'avg' not in last_pld:
+                    last_pld['avg'] = compute_avg(last_pld.get('grades', {}))
+                return jsonify(last_pld)
             return jsonify({"error": "No PLD data found"}), 404
-    except Exception as e:
+    except Exception:
         return jsonify({"error": "Server error"}), 500
 
 @app.route('/api/get_all_pld')
@@ -118,7 +213,12 @@ def get_all_pld():
             user_data = db_users.get(user_id)
 
             # Отдаем только объект history или пустой объект, если истории нет
-            return jsonify(user_data.get('history', {}))
+            if not user_data:
+                return jsonify([])
+
+            history_list = ensure_history_list(user_data)
+            history_list.sort(key=lambda x: parse_date(x.get('date')) or datetime.min.date(), reverse=True)
+            return jsonify(history_list)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -136,7 +236,12 @@ def get_students_list():
         with open('users.json', 'r', encoding='utf-8') as f:
             db = json.load(f)
         # Собираем только тех, у кого роль student (если есть в профиле) или всех
-        list_data = [{"id": uid, "name": data['profile']['fullname']} for uid, data in db.items()]
+        list_data = []
+        for uid, data in db.items():
+            if users.get(uid, {}).get('role') == 'mentor':
+                continue
+            fullname = data.get('profile', {}).get('fullname', 'Unknown')
+            list_data.append({"id": uid, "name": fullname})
         return jsonify(list_data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -147,10 +252,88 @@ def save_pld():
     if session.get('user_role') != 'mentor':
         return jsonify({"status": "error", "message": "Access denied"}), 403
 
-    data = request.json
+    data = request.json or {}
+
+    if data.get('students') and data.get('scores'):
+        topic = data.get('topic')
+        subtopics = data.get('subtopics', [])
+        students = data.get('students', [])
+        scores = data.get('scores', {})
+        created_at = normalize_date(data.get('created_at'))
+
+        if not topic or not subtopics or not students:
+            return jsonify({"status": "error", "message": "Missing data"}), 400
+
+        try:
+            with open('users.json', 'r+', encoding='utf-8') as f:
+                db = json.load(f)
+
+                missing_ids = [student.get('id') for student in students if student.get('id') not in db]
+                if missing_ids:
+                    return jsonify({"status": "error", "message": f"Students not found: {', '.join(missing_ids)}"}), 404
+
+                saved_count = 0
+                overall_sum = 0
+
+                for student in students:
+                    student_id = student.get('id')
+                    student_record = db.get(student_id)
+                    if not student_record:
+                        continue
+
+                    student_scores = scores.get(student_id, {})
+                    grades = {}
+                    for subtopic in subtopics:
+                        value = student_scores.get(subtopic, 0)
+                        try:
+                            value = float(value)
+                        except (TypeError, ValueError):
+                            value = 0
+                        value = max(0, min(10, value))
+                        grades[subtopic] = value
+
+                    avg = compute_avg(grades)
+                    last_pld = {
+                        "date": created_at,
+                        "topic": topic,
+                        "grades": grades,
+                        "avg": avg
+                    }
+
+                    student_record['last_pld'] = last_pld
+                    history_list = ensure_history_list(student_record)
+                    signature = grades_signature(grades)
+                    exists = any(
+                        entry.get('topic') == topic
+                        and normalize_date(entry.get('date')) == created_at
+                        and grades_signature(entry.get('grades', {})) == signature
+                        for entry in history_list
+                    )
+                    if not exists:
+                        history_list.append({
+                            "date": created_at,
+                            "topic": topic,
+                            "grades": grades,
+                            "avg": avg
+                        })
+                    rebuild_history_map(student_record)
+                    rebuild_stats(student_record)
+
+                    saved_count += 1
+                    overall_sum += avg
+
+                f.seek(0)
+                json.dump(db, f, indent=4, ensure_ascii=False)
+                f.truncate()
+
+            overall_avg = round(overall_sum / saved_count, 1) if saved_count else 0
+            return jsonify({"status": "success", "saved_count": saved_count, "avg_overall": overall_avg}), 200
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+
     student_id = data.get('student_id')
     topic = data.get('topic')
-    grades = data.get('grades')  # { "Вопрос": оценка }
+    grades = data.get('grades')
 
     if not student_id or not topic or not grades:
         return jsonify({"status": "error", "message": "Missing data"}), 400
@@ -163,40 +346,72 @@ def save_pld():
                 return jsonify({"status": "error", "message": "Student not found"}), 404
 
             student = db[student_id]
+            avg = compute_avg(grades)
+            date_value = normalize_date(data.get('created_at'))
 
-            # 1. Считаем средний балл текущего PLD
-            current_pld_avg = sum(grades.values()) / len(grades) if grades else 0
-            current_pld_avg = round(current_pld_avg, 1)
-
-            # 2. Обновляем last_pld
             student['last_pld'] = {
-                "date": datetime.now().strftime("%Y-%m-%d"),
+                "date": date_value,
                 "topic": topic,
-                "grades": grades
+                "grades": grades,
+                "avg": avg
             }
 
-            # 3. Обновляем history
-            if 'history' not in student:
-                student['history'] = {}
-            # Добавляем/обновляем топик в истории
-            student['history'][topic] = current_pld_avg
+            history_list = ensure_history_list(student)
+            signature = grades_signature(grades)
+            exists = any(
+                entry.get('topic') == topic
+                and normalize_date(entry.get('date')) == date_value
+                and grades_signature(entry.get('grades', {})) == signature
+                for entry in history_list
+            )
+            if not exists:
+                history_list.append({
+                    "date": date_value,
+                    "topic": topic,
+                    "grades": grades,
+                    "avg": avg
+                })
+            rebuild_history_map(student)
+            rebuild_stats(student)
 
-            # 4. Обновляем stats
-            if 'stats' not in student:
-                student['stats'] = {"total_plds": 0, "avg_score": 0}
-
-            # Количество PLD — это просто длина истории
-            student['stats']['total_plds'] = len(student['history'])
-            # Итоговый средний балл — среднее от всех баллов в истории
-            all_history_scores = student['history'].values()
-            student['stats']['avg_score'] = round(sum(all_history_scores) / len(all_history_scores), 1)
-
-            # Сохраняем файл
             f.seek(0)
             json.dump(db, f, indent=4, ensure_ascii=False)
             f.truncate()
 
-        return jsonify({"status": "success"}), 200
+        return jsonify({"status": "success", "saved_count": 1, "avg_overall": avg}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/api/clear_last_pld', methods=['POST'])
+def clear_last_pld():
+    if session.get('user_role') != 'mentor':
+        return jsonify({"status": "error", "message": "Access denied"}), 403
+
+    data = request.json or {}
+    student_ids = data.get('student_ids') or []
+    student_id = data.get('student_id')
+    if student_id:
+        student_ids.append(student_id)
+
+    student_ids = [sid for sid in student_ids if sid]
+    if not student_ids:
+        return jsonify({"status": "error", "message": "No student IDs provided"}), 400
+
+    try:
+        with open('users.json', 'r+', encoding='utf-8') as f:
+            db = json.load(f)
+            cleared = 0
+            for sid in student_ids:
+                if sid in db and 'last_pld' in db[sid]:
+                    db[sid].pop('last_pld', None)
+                    cleared += 1
+
+            f.seek(0)
+            json.dump(db, f, indent=4, ensure_ascii=False)
+            f.truncate()
+
+        return jsonify({"status": "success", "cleared": cleared}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
@@ -207,6 +422,18 @@ def get_leaderboards():
     current_user_email = session.get('user_email', '')
     current_user_id = current_user_email.split('@')[0] if current_user_email else None
 
+    now = datetime.utcnow().date()
+    if scope == 'month':
+        window_days = 30
+        viewing_label = 'Month (Last 30 Days)'
+    elif scope == 'sprint':
+        window_days = 90
+        viewing_label = 'Sprint (Last 3 Months)'
+    else:
+        window_days = None
+        viewing_label = 'Last PLD'
+        scope = 'last'
+
     try:
         with open('users.json', 'r', encoding='utf-8') as f:
             db = json.load(f)
@@ -214,41 +441,43 @@ def get_leaderboards():
         all_students = []
 
         for uid, user in db.items():
-            # Работаем только со студентами
-            if user.get('role') == 'mentor':
+            if users.get(uid, {}).get('role') == 'mentor':
                 continue
 
             fullname = user.get('profile', {}).get('fullname', 'Unknown')
             display_name = f"{fullname} ({uid})"
-            score = 0
 
             if scope == 'last':
-                # Сумма баллов за последнее PLD
-                grades = user.get('last_pld', {}).get('grades', {})
-                score = sum(grades.values()) / len(grades) if grades else 0
+                last_pld = user.get('last_pld', {})
+                score = last_pld.get('avg')
+                if score is None:
+                    score = compute_avg(last_pld.get('grades', {}))
             else:
-                # Sprint: Сумма ВСЕХ баллов из истории
-                history = user.get('history', {})
-                # Если в истории хранятся средние баллы за топик, суммируем их
-                score = sum(history.values()) if history else 0
+                history_list = ensure_history_list(user)
+                cutoff = now - timedelta(days=window_days)
+                values = []
+                for entry in history_list:
+                    entry_date = parse_date(entry.get('date'))
+                    if entry_date and entry_date >= cutoff:
+                        avg = entry.get('avg')
+                        if avg is None:
+                            avg = compute_avg(entry.get('grades', {}))
+                        values.append(float(avg))
+                score = round(sum(values) / len(values), 1) if values else 0
 
             all_students.append({
                 "id": uid,
                 "name": display_name,
-                "score": round(score, 1)
+                "score": round(float(score), 1) if score is not None else 0
             })
 
-        # Сортируем всех по убыванию баллов
         all_students.sort(key=lambda x: x['score'], reverse=True)
 
-        # Присваиваем ранги
         for index, student in enumerate(all_students):
             student['rank'] = index + 1
 
-        # Формируем ТОП-10
         top_10 = all_students[:10]
 
-        # Ищем текущего юзера в полном списке
         current_user_row = None
         user_in_top_10 = False
 
@@ -261,7 +490,7 @@ def get_leaderboards():
                     break
 
         return jsonify({
-            "viewing": "Last PLD (Top 10)" if scope == 'last' else "Sprint Total (Top 10)",
+            "viewing": f"{viewing_label} (Top 10)",
             "columns": ["Rank", "Name", "Score"],
             "top_10": top_10,
             "user_row": current_user_row if not user_in_top_10 else None
@@ -269,6 +498,7 @@ def get_leaderboards():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -21,6 +21,7 @@
             <!-- Leaderboards Section -->
             <div class="section-title">
                 <a href="{{ url_for('leaderboards_page') }}" class="leaderboards-link">LEADERBOARDS</a>
+                <button class="logout-btn" id="logout-btn" type="button">LOGOUT</button>
             </div>
             
             <!-- Action Buttons -->
@@ -62,15 +63,18 @@
                     </div>
 
                     <div class="pld-actions">
-                        <button class="pld-save" id="save-pld" type="submit">Save PLD</button>
+                        <div class="pld-primary-actions">
+                            <button class="pld-save" id="save-pld" type="submit">Save PLD</button>
+                            <button class="pld-btn pld-reset" id="reset-form" type="button">Reset Form</button>
+                            <button class="pld-btn pld-clear" id="clear-last" type="button">Clear Last PLD</button>
+                        </div>
+                        <div id="pld-summary" class="pld-summary"></div>
                         <span id="pld-status" class="pld-status"></span>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <div class="star-decor">✦</div>
 
     <script src="{{ url_for('static', filename='JS/mentor-script.js') }}"></script>
 </body>
