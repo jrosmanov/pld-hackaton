@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holberton PLD | Leaderboards</title>
+    <link rel="stylesheet" href="CSS/leaderboards-style.css">
+</head>
+<body>
+    <div class="background-logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkOsDLXeCr-IfKDnkeycWiqx5Uc_F5fDugNg&s" alt="Background Graphic">
+    </div>
+
+    <div class="leaderboard-container">
+        <div class="leaderboard-card">
+            <div class="leaderboard-header">
+                <h1>LEADERBOARD</h1>
+            </div>
+
+            <div class="leaderboard-actions">
+                <button class="leaderboard-btn" data-scope="last">Last PLD</button>
+                <button class="leaderboard-btn" data-scope="month">Month</button>
+                <button class="leaderboard-btn" data-scope="sprint">Sprint</button>
+            </div>
+
+            <div class="leaderboard-viewing">
+                <span>Viewing:</span>
+                <strong id="leaderboard-viewing">Last PLD</strong>
+                <span id="leaderboard-status" class="leaderboard-status"></span>
+            </div>
+
+            <div class="leaderboard-table">
+                <div class="leaderboard-row leaderboard-header-row" id="leaderboard-columns">
+                    <span>Rank</span>
+                    <span>Name</span>
+                    <span>Score</span>
+                </div>
+                <div id="leaderboard-body" class="leaderboard-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="star-decor">âœ¦</div>
+
+    <script src="JS/leaderboards-script.js"></script>
+</body>
+</html>

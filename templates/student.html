@@ -20,7 +20,7 @@
 
             <!-- Leaderboards Section -->
             <div class="section-title">
-                <a href="#" class="leaderboards-link" target="_blank">LEADERBOARDS</a>
+                <a href="{{ url_for('static', filename='leaderboards.html') }}" class="leaderboards-link">LEADERBOARDS</a>
             </div>
 
             <!-- Action Buttons -->
@@ -31,7 +31,7 @@
 
             <!-- Dynamic Content Area -->
             <div class="content-area">
-                <p id="button-text">TEXT OF BUTTONS</p>
+                <div id="student-view" class="student-view"></div>
             </div>
         </div>
     </div>

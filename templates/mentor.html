@@ -20,19 +20,52 @@
             
             <!-- Leaderboards Section -->
             <div class="section-title">
-                <a href="#" class="leaderboards-link" target="_blank">LEADERBOARDS</a>
+                <a href="{{ url_for('static', filename='leaderboards.html') }}" class="leaderboards-link">LEADERBOARDS</a>
             </div>
             
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button class="action-btn" data-action="last">LAST PLD</button>
-                <button class="action-btn" data-action="all">ALL PLD</button>
-                <button class="action-btn" data-action="entry">DATA ENTRY</button>
+                <button class="action-btn active" data-action="entry" type="button">DATA ENTRY</button>
             </div>
 
             <!-- Dynamic Content Area -->
             <div class="content-area">
-                <p id="button-text">TEXT OF BUTTONS</p>
+                <form id="pld-form" class="pld-form">
+                    <div class="pld-section">
+                        <label class="pld-label" for="pld-topic">PLD Topic Name</label>
+                        <input id="pld-topic" class="pld-input" type="text" placeholder="e.g., Backend Fundamentals" required>
+                    </div>
+
+                    <div class="pld-section">
+                        <div class="pld-section-header">
+                            <span class="pld-label">Subtopics</span>
+                            <button class="pld-btn" id="add-subtopic" type="button">Add Subtopic</button>
+                        </div>
+                        <div id="subtopics-list" class="pld-list"></div>
+                    </div>
+
+                    <div class="pld-section">
+                        <div class="pld-section-header">
+                            <span class="pld-label">Students</span>
+                            <button class="pld-btn" id="add-student" type="button">Add Student</button>
+                        </div>
+                        <div id="students-list" class="pld-list"></div>
+                    </div>
+
+                    <div class="pld-section">
+                        <span class="pld-label">Scores (0-10)</span>
+                        <div id="scores-grid" class="scores-grid"></div>
+                        <div class="pld-average">
+                            Overall PLD Average:
+                            <strong id="overall-average">0.0</strong>
+                        </div>
+                    </div>
+
+                    <div class="pld-actions">
+                        <button class="pld-save" id="save-pld" type="submit">Save PLD</button>
+                        <span id="pld-status" class="pld-status"></span>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
