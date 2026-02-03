@@ -16,11 +16,11 @@
         <h2>LOGIN</h2>
 
         <div class="role-switcher">
-            <button class="role-btn active">Student</button>
-            <button class="role-btn">Mentor</button>
+            <button class="role-btn active" data-role="student">Student</button>
+            <button class="role-btn" data-role="mentor">Mentor</button>
         </div>
 
-        <div class="logging-as">Logging in as: <strong>Student</strong></div>
+        <div class="logging-as">Logging in as: <strong id="current-role">Student</strong></div>
 
         <form>
             <div class="form-group">
@@ -34,6 +34,8 @@
     </div>
 
     <div class="star-decor">✦</div>
+
+    <script src="../src/function.js"></script>
 
 </body>
 </html>
