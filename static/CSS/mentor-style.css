@@ -196,16 +196,163 @@ body {
     margin-top: 30px;
     min-height: 80px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
-.content-area p {
+.pld-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+}
+
+.pld-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pld-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.pld-label {
+    color: var(--text-white);
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.pld-input {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+.pld-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pld-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pld-item input {
+    flex: 1;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+
+.pld-remove {
+    border: 1px solid #444b52;
+    background-color: transparent;
     color: var(--text-gray);
-    font-size: 1.1rem;
-    margin: 0;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pld-remove:hover {
+    color: var(--text-white);
+    border-color: var(--text-white);
+}
+
+.pld-btn {
+    border: 2px solid var(--hbtn-red);
+    background-color: transparent;
+    color: var(--hbtn-red);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pld-btn:hover {
+    background-color: var(--hbtn-red);
+    color: white;
+}
+
+.scores-grid {
+    border: 1px solid #34373c;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.scores-row {
+    display: grid;
+    gap: 8px;
+    padding: 10px 12px;
+    align-items: center;
+}
+
+.scores-row.header {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-white);
+    font-weight: 600;
+}
+
+.scores-row + .scores-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scores-cell {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.scores-input {
+    width: 60px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+}
+
+.pld-average {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.pld-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pld-save {
+    border: none;
+    background-color: var(--hbtn-red);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.pld-save:hover {
+    transform: translateY(-1px);
+}
+
+.pld-status {
+    color: var(--text-gray);
+    font-size: 0.9rem;
 }
 
 /* Star Decoration */
@@ -246,5 +393,19 @@ body {
 
     .content-area {
         min-height: 80px;
+    }
+
+    .pld-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .scores-row {
+        font-size: 0.85rem;
+    }
+
+    .pld-actions {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
