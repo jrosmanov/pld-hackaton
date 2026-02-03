@@ -104,7 +104,21 @@ function rebuildGrid() {
 
     // Добавляем слушатель для живого расчета среднего
     row.querySelectorAll('.grade-value').forEach(input => {
-        input.addEventListener('input', calculateLiveAverages);
+        input.addEventListener('keydown', (event) => {
+            if (['e', 'E', '+', '-'].includes(event.key)) {
+                event.preventDefault();
+            }
+        });
+        input.addEventListener('input', () => {
+            const value = parseFloat(input.value);
+            if (Number.isNaN(value)) {
+                input.value = '';
+            } else {
+                const clamped = Math.min(10, Math.max(0, value));
+                input.value = clamped;
+            }
+            calculateLiveAverages();
+        });
     });
 }
 
@@ -112,7 +126,14 @@ function rebuildGrid() {
 function calculateLiveAverages() {
     const inputs = document.querySelectorAll('.grade-value');
     let sum = 0;
-    inputs.forEach(i => sum += parseFloat(i.value) || 0);
+    inputs.forEach(i => {
+        const value = parseFloat(i.value);
+        const clamped = Number.isNaN(value) ? 0 : Math.min(10, Math.max(0, value));
+        if (!Number.isNaN(value) && value !== clamped) {
+            i.value = clamped;
+        }
+        sum += clamped;
+    });
 
     const avg = inputs.length > 0 ? (sum / inputs.length).toFixed(1) : "0.0";
     document.getElementById('live-avg').textContent = avg;

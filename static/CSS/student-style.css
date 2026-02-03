@@ -87,6 +87,11 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.section-title {
+    margin: 20px 0 22px 0;
+    text-align: center;
+}
+
 .leaderboards-link {
     color: var(--hbtn-red);
     text-decoration: none;

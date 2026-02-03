@@ -7,11 +7,9 @@
         },
         "last_pld": {
             "date": "2026-02-03",
-            "topic": "ORM",
+            "topic": "Salam",
             "grades": {
-                "What is SQLAlchemy": 10,
-                "What is JOIN": 10,
-                "For what we need ON in JOIN": 8
+                "sagol": 10
             }
         },
         "history": {
@@ -20,11 +18,12 @@
             "Advanced JS": 9,
             "C ++ FUndamentals": 9.5,
             "Telebot": 8.0,
-            "ORM": 9.3
+            "ORM": 9.3,
+            "Salam": 10.0
         },
         "stats": {
-            "total_plds": 6,
-            "avg_score": 8.5
+            "total_plds": 7,
+            "avg_score": 8.7
         }
     },
     "11223": {
