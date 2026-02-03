@@ -6,24 +6,24 @@
             "program": "FS"
         },
         "last_pld": {
-            "date": "2026-02-01",
-            "topic": "Python - Web Flask",
+            "date": "2026-02-03",
+            "topic": "C ++ FUndamentals",
             "grades": {
-                "What is Flask and how does it differ from Django?": 7,
-                "How do you define a route in Flask?": 4,
-                "What is the purpose of render_template in Flask?": 4,
-                "How can you handle form data submitted via POST in Flask?": 3,
-                "What is a Flask session and when would you use it?": 7
+                "C ++": 10,
+                "C ++ Array": 10,
+                "C ++ Massiv": 8,
+                "C ++ Variables": 10
             }
         },
         "history": {
             "Python Basics": 8,
             "SQL Databases": 7,
-            "Advanced JS": 9
+            "Advanced JS": 9,
+            "C ++ FUndamentals": 9.5
         },
         "stats": {
-            "total_plds": 12,
-            "avg_score": 8.6
+            "total_plds": 5,
+            "avg_score": 7.3
         }
     },
     "11223": {
@@ -85,22 +85,23 @@
             "program": "FS"
         },
         "last_pld": {
-            "date": "2026-02-01",
-            "topic": "Python - Web Django",
+            "date": "2026-02-03",
+            "topic": "OOP",
             "grades": {
-                "What is Django and what are its main advantages?": 6,
-                "How do you create a new app in a Django project?": 7,
-                "What is a Django template and how is it used?": 8
+                "Class VS Function": 8,
+                "OOP for what stand": 3,
+                "Abstract CLasses": 1
             }
         },
         "history": {
             "Shell Scripts": 7,
             "C Programming": 6.5,
-            "Data Structures": 8
+            "Data Structures": 8,
+            "OOP": 4.0
         },
         "stats": {
-            "total_plds": 20,
-            "avg_score": 7.4
+            "total_plds": 4,
+            "avg_score": 6.4
         }
     },
     "33442": {

@@ -8,10 +8,9 @@
     --input-bg: #ffffff;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
+/* Разрешаем странице растягиваться */
+html {
+    height: auto;
 }
 
 body {
@@ -21,115 +20,20 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* Прижимаем к верху, чтобы при скролле видеть начало формы */
+    align-items: flex-start;
+    /* Минимум на весь экран, но растет дальше если надо */
     min-height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    /* Включаем вертикальный скролл и убираем горизонтальный */
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
-    padding: 0;
+    /* Отступы сверху и снизу, чтобы карточка не прилипала */
+    padding: 60px 20px;
+    box-sizing: border-box;
 }
 
-/* Background Logo */
-.background-logo {
-    position: fixed;
-    left: -10%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 700px;
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.background-logo img {
-    width: 100%;
-    filter: grayscale(100%);
-    animation: floatLogo 8s ease-in-out infinite;
-}
-
-@keyframes floatLogo {
-    0%, 100% {
-        transform: translateY(0) rotate(-2deg);
-    }
-    50% {
-        transform: translateY(-18px) rotate(2deg);
-    }
-}
-
-/* Portal Container */
-.portal-container {
-    z-index: 1;
-    width: 100%;
-    max-width: 960px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Portal Card */
-.portal-card {
-    background-color: var(--card-bg);
-    border-radius: 16px;
-    padding: 64px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    text-align: center;
-    width: min(960px, 92vw);
-}
-
-/* Portal Header */
-.portal-header {
-    margin-bottom: 40px;
-}
-
-.portal-header h1 {
-    color: var(--hbtn-red);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 0;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Role Switcher */
-.role-switcher {
-    display: flex;
-    background-color: #34373c;
-    padding: 8px;
-    border-radius: 50px;
-    margin-bottom: 35px;
-    gap: 8px;
-    justify-content: center;
-}
-
-.role-btn {
-    flex: 1;
-    max-width: 150px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--text-gray);
-    transition: all 0.3s ease;
-}
-
-.role-btn:hover {
-    color: var(--text-white);
-}
-
-.role-btn.active {
-    background-color: var(--hbtn-red);
-    color: white;
-    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
-}
-
-/* Section Title (Leaderboards) */
 .section-title {
     margin: 35px 0 30px 0;
     font-size: 1.1rem;
@@ -149,7 +53,6 @@ body {
     opacity: 0.8;
 }
 
-/* Action Buttons */
 .action-buttons {
     display: flex;
     gap: 15px;
@@ -175,11 +78,15 @@ body {
     text-transform: capitalize;
 }
 
+
+
 .action-btn:hover {
     background-color: var(--hbtn-red);
     color: white;
     box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
 }
+
+
 
 .action-btn.active {
     background-color: var(--hbtn-red);
@@ -187,37 +94,76 @@ body {
     box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
 }
 
-/* Content Area */
-.content-area {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid #34373c;
-    border-radius: 10px;
-    padding: 25px;
-    margin-top: 30px;
-    min-height: 80px;
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-start;
+/* Фоновый логотип - теперь он зафиксирован и не уплывает при скролле */
+.background-logo {
+    position: fixed;
+    left: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
 }
 
+.background-logo img {
+    width: 100%;
+    filter: grayscale(100%);
+    animation: floatLogo 8s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+/* Контейнер теперь не ограничивает высоту */
+.portal-container {
+    z-index: 1;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.portal-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 64px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Заголовок */
+.portal-header {
+    margin-bottom: 40px;
+}
+
+.portal-header h1 {
+    color: var(--hbtn-red);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Форма и секции */
 .pld-form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 24px;
     text-align: left;
 }
 
 .pld-section {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.pld-section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 12px;
 }
 
@@ -225,26 +171,29 @@ body {
     color: var(--text-white);
     font-weight: 600;
     letter-spacing: 0.4px;
+    font-size: 1.1rem;
 }
 
 .pld-input {
     background-color: #ffffff;
-    border: none;
+    border: 1px solid #34373c;
     border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 0.95rem;
+    padding: 12px;
+    font-size: 1rem;
+    color: #1a1d21;
 }
 
+/* Список вопросов */
 .pld-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .pld-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .pld-item input {
@@ -252,31 +201,32 @@ body {
     background-color: #ffffff;
     border: none;
     border-radius: 8px;
-    padding: 8px 10px;
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    font-size: 0.95rem;
 }
 
 .pld-remove {
-    border: 1px solid #444b52;
+    border: 1px solid #e91e63;
     background-color: transparent;
-    color: var(--text-gray);
+    color: var(--hbtn-red);
     border-radius: 6px;
-    padding: 6px 10px;
+    padding: 8px 12px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .pld-remove:hover {
-    color: var(--text-white);
-    border-color: var(--text-white);
+    background-color: var(--hbtn-red);
+    color: white;
 }
 
 .pld-btn {
+    align-self: flex-start;
     border: 2px solid var(--hbtn-red);
     background-color: transparent;
     color: var(--hbtn-red);
     border-radius: 8px;
-    padding: 6px 12px;
+    padding: 8px 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -287,18 +237,21 @@ body {
     color: white;
 }
 
+/* Таблица оценок */
 .scores-grid {
     border: 1px solid #34373c;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: auto; /* На случай, если вопросов будет СЛИШКОМ много */
     background-color: rgba(255, 255, 255, 0.03);
+    margin-top: 10px;
 }
 
 .scores-row {
     display: grid;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 12px;
+    padding: 14px 18px;
     align-items: center;
+    min-width: 600px; /* Чтобы таблица не сжималась в кашу */
 }
 
 .scores-row.header {
@@ -311,28 +264,23 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.scores-cell {
-    color: var(--text-gray);
-    font-size: 0.9rem;
-}
-
 .scores-input {
     width: 60px;
-    padding: 6px 8px;
+    padding: 8px;
     border-radius: 6px;
-    border: none;
+    border: 1px solid #ccc;
     text-align: center;
 }
 
-.pld-average {
-    color: var(--text-gray);
-    font-size: 0.9rem;
-}
-
+/* Футер формы */
 .pld-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pld-save {
@@ -340,22 +288,25 @@ body {
     background-color: var(--hbtn-red);
     color: white;
     border-radius: 8px;
-    padding: 10px 18px;
-    font-weight: 600;
+    padding: 14px 28px;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s;
 }
 
 .pld-save:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    background-color: var(--hbtn-red-hover);
 }
 
 .pld-status {
     color: var(--text-gray);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-style: italic;
 }
 
-/* Star Decoration */
+/* Звезда декоративная */
 .star-decor {
     position: fixed;
     bottom: 30px;
@@ -366,46 +317,9 @@ body {
     z-index: 1;
 }
 
-/* Responsive Design */
+/* Адаптивность */
 @media (max-width: 768px) {
-    .portal-card {
-        padding: 30px;
-    }
-
-    .portal-header h1 {
-        font-size: 1.5rem;
-    }
-
-    .role-btn {
-        max-width: none;
-    }
-
-    .action-btn {
-        min-width: 120px;
-        max-width: none;
-        font-size: 0.75rem;
-        padding: 10px 12px;
-    }
-
-    .action-buttons {
-        gap: 10px;
-    }
-
-    .content-area {
-        min-height: 80px;
-    }
-
-    .pld-section-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .scores-row {
-        font-size: 0.85rem;
-    }
-
-    .pld-actions {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+    .portal-card { padding: 32px 20px; }
+    .portal-header h1 { font-size: 1.5rem; }
+    .pld-actions { flex-direction: column; text-align: center; }
 }
