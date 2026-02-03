@@ -1,0 +1,219 @@
+:root {
+    --bg-dark: #1a1d21;
+    --card-bg: #25282c;
+    --hbtn-red: #e91e63;
+    --hbtn-red-hover: #d81b60;
+    --text-white: #ffffff;
+    --text-gray: #b0b3b8;
+    --table-line: rgba(255, 255, 255, 0.08);
+    --table-row: rgba(255, 255, 255, 0.03);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+}
+
+.background-logo {
+    position: fixed;
+    left: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.background-logo img {
+    width: 100%;
+    filter: grayscale(100%);
+    animation: floatLogo 8s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-18px) rotate(2deg);
+    }
+}
+
+.leaderboard-container {
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.leaderboard-card {
+    background-color: var(--card-bg);
+    border-radius: 18px;
+    padding: 48px 52px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: min(760px, 92vw);
+}
+
+.leaderboard-header h1 {
+    color: var(--hbtn-red);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 26px 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.leaderboard-btn {
+    padding: 10px 22px;
+    border: 2px solid var(--hbtn-red);
+    border-radius: 999px;
+    background-color: #f5f6f7;
+    color: #3a3d41;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: capitalize;
+    min-width: 120px;
+}
+
+.leaderboard-btn:hover {
+    transform: translateY(-1px);
+}
+
+.leaderboard-btn.active {
+    background-color: var(--hbtn-red);
+    color: white;
+    border-color: var(--hbtn-red);
+    box-shadow: 0 8px 16px rgba(227, 28, 37, 0.25);
+}
+
+.leaderboard-viewing {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    margin: 12px 0 18px 0;
+}
+
+.leaderboard-viewing strong {
+    color: var(--text-white);
+    font-weight: 600;
+}
+
+.leaderboard-status {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    opacity: 0.7;
+}
+
+.leaderboard-table {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #34373c;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 0.8fr 2.4fr 1fr;
+    gap: 12px;
+    padding: 12px 18px;
+    align-items: center;
+}
+
+.leaderboard-header-row {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-white);
+    font-weight: 600;
+    border-bottom: 1px solid var(--table-line);
+}
+
+.leaderboard-body .leaderboard-row {
+    border-bottom: 1px solid var(--table-line);
+    color: var(--text-gray);
+}
+
+.leaderboard-body .leaderboard-row:nth-child(odd) {
+    background-color: var(--table-row);
+}
+
+.leaderboard-body .leaderboard-row:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-row span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.star-decor {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 24px;
+    color: var(--text-gray);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .leaderboard-card {
+        padding: 32px 24px;
+    }
+
+    .leaderboard-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .leaderboard-actions {
+        gap: 10px;
+    }
+
+    .leaderboard-btn {
+        min-width: 100px;
+        padding: 9px 16px;
+        font-size: 0.8rem;
+    }
+
+    .leaderboard-row {
+        grid-template-columns: 0.7fr 2fr 1fr;
+        padding: 10px 14px;
+    }
+}
