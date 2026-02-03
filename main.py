@@ -200,5 +200,75 @@ def save_pld():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
+@app.route('/api/leaderboards')
+def get_leaderboards():
+    scope = request.args.get('scope', 'last')
+    current_user_email = session.get('user_email', '')
+    current_user_id = current_user_email.split('@')[0] if current_user_email else None
+
+    try:
+        with open('users.json', 'r', encoding='utf-8') as f:
+            db = json.load(f)
+
+        all_students = []
+
+        for uid, user in db.items():
+            # Работаем только со студентами
+            if user.get('role') == 'mentor':
+                continue
+
+            fullname = user.get('profile', {}).get('fullname', 'Unknown')
+            display_name = f"{fullname} ({uid})"
+            score = 0
+
+            if scope == 'last':
+                # Сумма баллов за последнее PLD
+                grades = user.get('last_pld', {}).get('grades', {})
+                score = sum(grades.values()) / len(grades) if grades else 0
+            else:
+                # Sprint: Сумма ВСЕХ баллов из истории
+                history = user.get('history', {})
+                # Если в истории хранятся средние баллы за топик, суммируем их
+                score = sum(history.values()) if history else 0
+
+            all_students.append({
+                "id": uid,
+                "name": display_name,
+                "score": round(score, 1)
+            })
+
+        # Сортируем всех по убыванию баллов
+        all_students.sort(key=lambda x: x['score'], reverse=True)
+
+        # Присваиваем ранги
+        for index, student in enumerate(all_students):
+            student['rank'] = index + 1
+
+        # Формируем ТОП-10
+        top_10 = all_students[:10]
+
+        # Ищем текущего юзера в полном списке
+        current_user_row = None
+        user_in_top_10 = False
+
+        if current_user_id:
+            for student in all_students:
+                if student['id'] == current_user_id:
+                    current_user_row = student
+                    if student['rank'] <= 10:
+                        user_in_top_10 = True
+                    break
+
+        return jsonify({
+            "viewing": "Last PLD (Top 10)" if scope == 'last' else "Sprint Total (Top 10)",
+            "columns": ["Rank", "Name", "Score"],
+            "top_10": top_10,
+            "user_row": current_user_row if not user_in_top_10 else None
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

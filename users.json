@@ -1,29 +1,30 @@
 {
     "12734": {
         "profile": {
-            "fullname": "Alex Johnson",
+            "fullname": "Sabir Safarov",
             "email": "12734@hbtn.com",
             "program": "FS"
         },
         "last_pld": {
             "date": "2026-02-03",
-            "topic": "C ++ FUndamentals",
+            "topic": "ORM",
             "grades": {
-                "C ++": 10,
-                "C ++ Array": 10,
-                "C ++ Massiv": 8,
-                "C ++ Variables": 10
+                "What is SQLAlchemy": 10,
+                "What is JOIN": 10,
+                "For what we need ON in JOIN": 8
             }
         },
         "history": {
             "Python Basics": 8,
             "SQL Databases": 7,
             "Advanced JS": 9,
-            "C ++ FUndamentals": 9.5
+            "C ++ FUndamentals": 9.5,
+            "Telebot": 8.0,
+            "ORM": 9.3
         },
         "stats": {
-            "total_plds": 5,
-            "avg_score": 7.3
+            "total_plds": 6,
+            "avg_score": 8.5
         }
     },
     "11223": {
