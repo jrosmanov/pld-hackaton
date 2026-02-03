@@ -16,6 +16,7 @@ setTimeout(() => {
 // Get all role buttons
 const roleButtons = document.querySelectorAll('.role-btn');
 const currentRoleElement = document.getElementById('current-role');
+let selectedRole = 'student'; // Default role
 
 // Add click event listener to each button
 roleButtons.forEach(button => {
@@ -26,8 +27,26 @@ roleButtons.forEach(button => {
         // Add active class to clicked button
         this.classList.add('active');
         
-        // Update the "Logging in as" text
-        const role = this.getAttribute('data-role');
-        currentRoleElement.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+        // Update the "Logging in as" text and selected role
+        selectedRole = this.getAttribute('data-role');
+        currentRoleElement.textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
     });
 });
+
+// Handle login form submission
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Store the selected role in localStorage
+        localStorage.setItem('userRole', selectedRole);
+        
+        // Redirect based on selected role
+        if (selectedRole === 'student') {
+            window.location.href = 'student.html';
+        } else if (selectedRole === 'mentor') {
+            window.location.href = 'mentor.html';
+        }
+    });
+}

@@ -1,0 +1,228 @@
+:root {
+    --bg-dark: #1a1d21;
+    --card-bg: #25282c;
+    --hbtn-red: #e31c25;
+    --hbtn-red-hover: #c1121d;
+    --text-white: #ffffff;
+    --text-gray: #b0b3b8;
+    --input-bg: #ffffff;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* Background Logo */
+.background-logo {
+    position: fixed;
+    left: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.background-logo img {
+    width: 100%;
+    filter: grayscale(100%);
+}
+
+/* Portal Container */
+.portal-container {
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Portal Card */
+.portal-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 50px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+/* Portal Header */
+.portal-header {
+    margin-bottom: 40px;
+}
+
+.portal-header h1 {
+    color: var(--hbtn-red);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Role Switcher */
+.role-switcher {
+    display: flex;
+    background-color: #34373c;
+    padding: 8px;
+    border-radius: 50px;
+    margin-bottom: 35px;
+    gap: 8px;
+    justify-content: center;
+}
+
+.role-btn {
+    flex: 1;
+    max-width: 150px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text-gray);
+    transition: all 0.3s ease;
+}
+
+.role-btn:hover {
+    color: var(--text-white);
+}
+
+.role-btn.active {
+    background-color: var(--hbtn-red);
+    color: white;
+    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+}
+
+/* Section Title (Leaderboards) */
+.section-title {
+    margin: 35px 0 30px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.leaderboards-link {
+    color: var(--hbtn-red);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.leaderboards-link:hover {
+    opacity: 0.8;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    flex: 1;
+    min-width: 140px;
+    max-width: 180px;
+    padding: 12px 15px;
+    border: 2px solid var(--hbtn-red);
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--hbtn-red);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.action-btn:hover {
+    background-color: var(--hbtn-red);
+    color: white;
+    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+}
+
+.action-btn.active {
+    background-color: var(--hbtn-red);
+    color: white;
+    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+}
+
+/* Content Area */
+.content-area {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid #34373c;
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 30px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-area p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+/* Star Decoration */
+.star-decor {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 24px;
+    color: var(--text-gray);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .portal-card {
+        padding: 30px;
+    }
+
+    .portal-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .role-btn {
+        max-width: none;
+    }
+
+    .action-btn {
+        min-width: 120px;
+        max-width: none;
+        font-size: 0.75rem;
+        padding: 10px 12px;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+
+    .content-area {
+        min-height: 80px;
+    }
+}
