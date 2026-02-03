@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="az">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holberton PLD | Login</title>
-    <style>
-        :root {
+:root {
             --bg-dark: #1a1d21;
             --card-bg: #25282c;
             --hbtn-red: #e31c25;
@@ -141,36 +134,3 @@
             color: var(--text-gray);
             opacity: 0.5;
         }
-    </style>
-</head>
-<body>
-
-    <div class="background-logo">
-        <img src="https://www.holbertonschool.com/holberton-logo-icon.png" alt="Holberton Seahorse">
-    </div>
-
-    <div class="login-card">
-        <h2>LOGIN</h2>
-
-        <div class="role-switcher">
-            <button class="role-btn active">Student</button>
-            <button class="role-btn">Mentor</button>
-        </div>
-
-        <div class="logging-as">Logging in as: <strong>Student</strong></div>
-
-        <form>
-            <div class="form-group">
-                <input type="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="Password">
-            </div>
-            <button type="submit" class="sign-in-btn">Sign in</button>
-        </form>
-    </div>
-
-    <div class="star-decor">✦</div>
-
-</body>
-</html>
