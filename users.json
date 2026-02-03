@@ -1,0 +1,160 @@
+{
+    "12734": {
+        "profile": {
+            "fullname": "Alex Johnson",
+            "email": "12734@hbtn.com",
+            "program": "FS"
+        },
+        "last_pld": {
+            "date": "2026-02-01",
+            "topic": "Python - Web Flask",
+            "grades": {
+                "What is Flask and how does it differ from Django?": 7,
+                "How do you define a route in Flask?": 4,
+                "What is the purpose of render_template in Flask?": 4,
+                "How can you handle form data submitted via POST in Flask?": 3,
+                "What is a Flask session and when would you use it?": 7
+            }
+        },
+        "history": {
+            "Python Basics": 8,
+            "SQL Databases": 7,
+            "Advanced JS": 9
+        },
+        "stats": {
+            "total_plds": 12,
+            "avg_score": 8.6
+        }
+    },
+    "11223": {
+        "profile": {
+            "fullname": "Maria Garcia",
+            "email": "11223@hbtn.com",
+            "program": "Machine Learning"
+        },
+        "last_pld": {
+            "date": "2026-02-02",
+            "topic": "Numpy & Pandas",
+            "grades": {
+                "How do you create a NumPy array from a Python list?": 10,
+                "What is the difference between a Pandas Series and a DataFrame?": 10,
+                "How can you select specific rows or columns from a DataFrame?": 9,
+                "What is the purpose of vectorization in NumPy?": 10,
+                "How do you handle missing data in Pandas?": 0
+            }
+        },
+        "history": {
+            "Python Intro": 10,
+            "Statistics": 9.5,
+            "Linear Algebra": 9
+        },
+        "stats": {
+            "total_plds": 15,
+            "avg_score": 9.8
+        }
+    },
+    "44556": {
+        "profile": {
+            "fullname": "Ivan Petrov",
+            "email": "44556@hbtn.com",
+            "program": "Front-end"
+        },
+        "last_pld": {
+            "date": "2026-01-25",
+            "topic": "HTML & CSS Basics",
+            "grades": {
+                "What is the difference between an ID and a class in HTML/CSS?": 5,
+                "How do you include an external CSS file in an HTML document?": 6,
+                "What is the difference between inline, internal, and external CSS?": 4,
+                "How can you center a div horizontally and vertically using CSS?": 5,
+                "What are semantic HTML elements and why are they important?": 5
+            }
+        },
+        "history": {
+            "Internet Fundamentals": 7
+        },
+        "stats": {
+            "total_plds": 2,
+            "avg_score": 6.2
+        }
+    },
+    "77889": {
+        "profile": {
+            "fullname": "Sarah Smith",
+            "email": "77889@hbtn.com",
+            "program": "FS"
+        },
+        "last_pld": {
+            "date": "2026-02-01",
+            "topic": "Python - Web Django",
+            "grades": {
+                "What is Django and what are its main advantages?": 6,
+                "How do you create a new app in a Django project?": 7,
+                "What is a Django template and how is it used?": 8
+            }
+        },
+        "history": {
+            "Shell Scripts": 7,
+            "C Programming": 6.5,
+            "Data Structures": 8
+        },
+        "stats": {
+            "total_plds": 20,
+            "avg_score": 7.4
+        }
+    },
+    "33442": {
+        "profile": {
+            "fullname": "Liam Wilson",
+            "email": "33442@hbtn.com",
+            "program": "DevOps"
+        },
+        "last_pld": {
+            "date": "2026-01-30",
+            "topic": "Linux Administration",
+            "grades": {
+                "What command is used to check disk usage in Linux?": 2,
+                "How do you change file permissions in Linux?": 3,
+                "What is the purpose of the crontab command?": 2,
+                "How can you check running processes in Linux?": 4,
+                "What is the difference between a soft link and a hard link?": 3,
+                "How do you monitor system memory and CPU usage in real time?": 6,
+                "What is the difference between sudo and su commands?": 2
+            }
+        },
+        "history": {
+            "Networking": 4,
+            "Virtualization": 5
+        },
+        "stats": {
+            "total_plds": 5,
+            "avg_score": 3.8
+        }
+    },
+    "63887": {
+        "profile": {
+            "fullname": "Elena Rossi",
+            "email": "63887@hbtn.com",
+            "program": "Back-end"
+        },
+        "last_pld": {
+            "date": "2026-02-03",
+            "topic": "Redis & Caching",
+            "grades": {
+                "What is Redis and what are its main use cases?": 9,
+                "How can you set an expiration time for a key in Redis?": 9,
+                "What are some strategies to prevent cache stampede?": 10,
+                "How do you store and retrieve a value in Redis?": 9
+            }
+        },
+        "history": {
+            "Go Lang": 9,
+            "Microservices": 8.5,
+            "API Design": 9.2
+        },
+        "stats": {
+            "total_plds": 30,
+            "avg_score": 9.1
+        }
+    }
+}

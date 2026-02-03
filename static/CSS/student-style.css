@@ -8,28 +8,28 @@
     --input-bg: #ffffff;
 }
 
+/* Исправляем базу: убираем жесткую высоту 100% */
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-white);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+    align-items: flex-start; /* Контент начинается сверху */
+    overflow-y: auto;        /* Разрешаем скролл */
+    overflow-x: hidden;
     position: relative;
-    padding: 0;
 }
 
-/* Background Logo */
+/* Background Logo - оставляем fixed, чтобы не мешал скроллу */
 .background-logo {
     position: fixed;
     left: -10%;
@@ -48,26 +48,21 @@ body {
 }
 
 @keyframes floatLogo {
-    0%, 100% {
-        transform: translateY(0) rotate(-2deg);
-    }
-    50% {
-        transform: translateY(-18px) rotate(2deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
 }
 
-/* Portal Container */
+/* Portal Container - теперь просто обертка с отступами */
 .portal-container {
     z-index: 1;
     width: 100%;
     max-width: 860px;
-    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 40px 0; /* Отступы сверху и снизу, чтобы WELCOME было видно */
 }
 
-/* Portal Card */
+/* Portal Card - центрируем через margin: auto */
 .portal-card {
     background-color: var(--card-bg);
     border-radius: 16px;
@@ -75,9 +70,9 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     text-align: center;
     width: min(860px, 92vw);
+    margin: 0 auto; /* Центровка */
 }
 
-/* Portal Header */
 .portal-header {
     margin-bottom: 40px;
 }
@@ -92,61 +87,12 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Role Switcher */
-.role-switcher {
-    display: flex;
-    background-color: #34373c;
-    padding: 8px;
-    border-radius: 50px;
-    margin-bottom: 35px;
-    gap: 8px;
-    justify-content: center;
-}
-
-.role-btn {
-    flex: 1;
-    max-width: 150px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--text-gray);
-    transition: all 0.3s ease;
-}
-
-.role-btn:hover {
-    color: var(--text-white);
-}
-
-.role-btn.active {
-    background-color: var(--hbtn-red);
-    color: white;
-    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
-}
-
-/* Section Title (Leaderboards) */
-.section-title {
-    margin: 35px 0 30px 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-}
-
 .leaderboards-link {
     color: var(--hbtn-red);
     text-decoration: none;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     font-weight: 600;
-}
-
-.leaderboards-link:hover {
-    opacity: 0.8;
 }
 
 /* Action Buttons */
@@ -175,19 +121,13 @@ body {
     text-transform: capitalize;
 }
 
-.action-btn:hover {
+.action-btn.active, .action-btn:hover {
     background-color: var(--hbtn-red);
     color: white;
     box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
 }
 
-.action-btn.active {
-    background-color: var(--hbtn-red);
-    color: white;
-    box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
-}
-
-/* Content Area */
+/* Content Area - меняем display на block, чтобы список рос вниз */
 .content-area {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid #34373c;
@@ -195,55 +135,40 @@ body {
     padding: 25px;
     margin-top: 30px;
     min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    text-align: left;
 }
 
-.content-area p {
-    color: var(--text-gray);
-    font-size: 1.1rem;
-    margin: 0;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-/* Star Decoration */
 .star-decor {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    font-size: 24px;
-    color: var(--text-gray);
-    opacity: 0.5;
-    z-index: 1;
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 24px;
+            color: var(--text-gray);
+            opacity: 0.5;
+}
+
+/* Скроллбар в стиле Holberton */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--hbtn-red);
+    border-radius: 10px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .portal-card {
-        padding: 30px;
+        padding: 40px 20px;
     }
-
     .portal-header h1 {
         font-size: 1.5rem;
     }
-
-    .role-btn {
-        max-width: none;
-    }
-
-    .action-btn {
-        min-width: 130px;
-        max-width: none;
-        font-size: 0.8rem;
-    }
-
-    .action-buttons {
-        gap: 10px;
-    }
-
-    .content-area {
-        min-height: 80px;
+    .portal-container {
+        padding: 20px 0;
     }
 }

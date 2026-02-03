@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (!response.ok) {
                     // Если статус не 200 (например 401 ошибка доступа)
-                    throw new Error('The wrong Password, Email either Role');
+                    throw new Error('The wrong Password, Email or Role');
                 }
                 return response.json();
             })
