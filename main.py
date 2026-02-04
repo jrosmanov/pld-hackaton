@@ -74,6 +74,7 @@ def ensure_history_list(student):
                 entry['date'] = entry.get('date') or last_date
                 entry['grades'] = entry.get('grades') or last_pld.get('grades', {})
                 entry['avg'] = entry.get('avg') or last_pld.get('avg') or compute_avg(last_pld.get('grades', {}))
+                entry['comment'] = entry.get('comment') or last_pld.get('comment', '')
                 updated = True
                 break
         if not updated:
@@ -81,7 +82,8 @@ def ensure_history_list(student):
                 "date": last_date,
                 "topic": last_topic,
                 "avg": last_pld.get('avg') or compute_avg(last_pld.get('grades', {})),
-                "grades": last_pld.get('grades', {})
+                "grades": last_pld.get('grades', {}),
+                "comment": last_pld.get('comment', '')
             })
     return student['history_list']
 
@@ -259,6 +261,7 @@ def save_pld():
         subtopics = data.get('subtopics', [])
         students = data.get('students', [])
         scores = data.get('scores', {})
+        comments = data.get('comments', {})
         created_at = normalize_date(data.get('created_at'))
 
         if not topic or not subtopics or not students:
@@ -293,11 +296,13 @@ def save_pld():
                         grades[subtopic] = value
 
                     avg = compute_avg(grades)
+                    comment = comments.get(student_id, '')
                     last_pld = {
                         "date": created_at,
                         "topic": topic,
                         "grades": grades,
-                        "avg": avg
+                        "avg": avg,
+                        "comment": comment
                     }
 
                     student_record['last_pld'] = last_pld
@@ -314,7 +319,8 @@ def save_pld():
                             "date": created_at,
                             "topic": topic,
                             "grades": grades,
-                            "avg": avg
+                            "avg": avg,
+                            "comment": comment
                         })
                     rebuild_history_map(student_record)
                     rebuild_stats(student_record)
@@ -334,6 +340,7 @@ def save_pld():
     student_id = data.get('student_id')
     topic = data.get('topic')
     grades = data.get('grades')
+    comment = data.get('comment', '')
 
     if not student_id or not topic or not grades:
         return jsonify({"status": "error", "message": "Missing data"}), 400
@@ -353,7 +360,8 @@ def save_pld():
                 "date": date_value,
                 "topic": topic,
                 "grades": grades,
-                "avg": avg
+                "avg": avg,
+                "comment": comment
             }
 
             history_list = ensure_history_list(student)
@@ -369,7 +377,8 @@ def save_pld():
                     "date": date_value,
                     "topic": topic,
                     "grades": grades,
-                    "avg": avg
+                    "avg": avg,
+                    "comment": comment
                 })
             rebuild_history_map(student)
             rebuild_stats(student)

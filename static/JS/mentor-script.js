@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const subtopicsList = document.getElementById('subtopics-list');
     const studentsList = document.getElementById('students-list');
     const scoresGrid = document.getElementById('scores-grid');
+    const commentsGrid = document.getElementById('comments-grid');
     const overallAverageEl = document.getElementById('overall-average');
     const statusEl = document.getElementById('pld-status');
     const summaryEl = document.getElementById('pld-summary');
@@ -160,6 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return scores;
     };
 
+    const readComments = () => {
+        const comments = {};
+        commentsGrid.querySelectorAll('textarea[data-student]').forEach(textarea => {
+            const studentId = textarea.dataset.student;
+            comments[studentId] = textarea.value.trim();
+        });
+        return comments;
+    };
+
     const updateAverages = () => {
         const subtopics = getSubtopics();
         const scores = readScoresFromGrid();
@@ -190,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentScores = readScoresFromGrid();
 
         scoresGrid.innerHTML = '';
+        commentsGrid.innerHTML = '';
 
         if (subtopics.length === 0 || students.length === 0) {
             scoresGrid.innerHTML = '<div style="padding: 12px; color: var(--text-gray);">Add subtopics and students to enter scores.</div>';
@@ -226,6 +237,16 @@ document.addEventListener('DOMContentLoaded', () => {
             rowHtml += `<div class="scores-cell" data-avg="${student.id}">0.0</div>`;
             row.innerHTML = rowHtml;
             scoresGrid.appendChild(row);
+        });
+
+        students.forEach(student => {
+            const row = document.createElement('div');
+            row.className = 'comment-row';
+            row.innerHTML = `
+                <strong>${student.name} (${student.id})</strong>
+                <textarea class="comment-input" data-student="${student.id}" placeholder="Add feedback or comments for this student..."></textarea>
+            `;
+            commentsGrid.appendChild(row);
         });
 
         scoresGrid.querySelectorAll('.grade-value').forEach(input => {
@@ -293,12 +314,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const subtopics = getSubtopics();
         const students = getSelectedStudents();
         const scores = readScoresFromGrid();
+        const comments = readComments();
 
         const payload = {
             topic,
             subtopics,
             students,
-            scores
+            scores,
+            comments
         };
 
         try {

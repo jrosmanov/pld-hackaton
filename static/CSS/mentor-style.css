@@ -303,6 +303,39 @@ body {
     text-align: center;
 }
 
+.comments-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.comment-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.comment-row strong {
+    color: var(--text-white);
+    font-size: 0.95rem;
+}
+
+.comment-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #34373c;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
 /* Футер формы */
 .pld-actions {
     display: flex;

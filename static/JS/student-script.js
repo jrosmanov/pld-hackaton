@@ -36,6 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? Number(data.avg).toFixed(1)
                 : (amount ? (Object.values(grades).reduce((a, b) => a + b, 0) / amount).toFixed(1) : '0.0');
 
+            const commentSection = data.comment
+                ? `<div style="margin-top: 18px; padding: 14px; border-radius: 8px; background: rgba(255,255,255,0.04); color: var(--text-gray);">
+                        <strong style="color: white; display: block; margin-bottom: 6px;">Mentor Comment</strong>
+                        <span>${data.comment}</span>
+                   </div>`
+                : '';
+
             contentArea.innerHTML = `
                 <div class="pld-report" style="animation: fadeIn 0.4s ease;">
                     <div style="border-left: 4px solid var(--hbtn-red); padding-left: 15px; margin-bottom: 20px;">
@@ -55,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>Questions: <strong>${amount}</strong></span>
                         <span>Average: <strong style="color: var(--hbtn-red);">${avg}</strong></span>
                     </div>
+                    ${commentSection}
                 </div>`;
         } catch (error) {
             renderMessage('Connection error', true);
@@ -98,15 +106,47 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div style="height: 1px; background: linear-gradient(to right, var(--hbtn-red), transparent); margin-bottom: 20px;"></div>
                     <div class="history-list">
-                        ${entries.map(item => `
-                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                <span style="color: var(--text-white);">${item.topic}</span>
-                                <span style="color: var(--text-gray);">${formatDate(item.date)}</span>
-                                <strong style="color: var(--hbtn-red);">${Number(item.avg).toFixed(1)}</strong>
+                        ${entries.map((item, index) => `
+                            <button class="history-item" data-index="${index}" type="button">
+                                <span class="history-topic">${item.topic}</span>
+                                <span class="history-date">${formatDate(item.date)}</span>
+                                <strong class="history-avg">${Number(item.avg).toFixed(1)}</strong>
+                            </button>
+                            <div class="history-details" data-detail="${index}">
+                                <div class="history-subtopics">
+                                    ${(item.grades && Object.keys(item.grades).length)
+                                        ? Object.entries(item.grades).map(([q, g]) => `
+                                            <div class="history-subtopic">
+                                                <span>${q}</span>
+                                                <strong>${g}</strong>
+                                            </div>
+                                        `).join('')
+                                        : '<div class="history-empty">No subtopic scores available.</div>'
+                                    }
+                                </div>
+                                ${item.comment ? `
+                                    <div class="history-comment">
+                                        <strong>Mentor Comment</strong>
+                                        <span>${item.comment}</span>
+                                    </div>
+                                ` : ''}
                             </div>
                         `).join('')}
                     </div>
                 </div>`;
+
+            contentArea.querySelectorAll('.history-item').forEach(button => {
+                button.addEventListener('click', () => {
+                    const index = button.dataset.index;
+                    const details = contentArea.querySelector(`.history-details[data-detail="${index}"]`);
+                    if (!details) return;
+                    const isOpen = details.classList.contains('open');
+                    contentArea.querySelectorAll('.history-details').forEach(panel => panel.classList.remove('open'));
+                    if (!isOpen) {
+                        details.classList.add('open');
+                    }
+                });
+            });
         } catch (error) {
             renderMessage('Error loading history', true);
         }

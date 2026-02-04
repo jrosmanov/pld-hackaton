@@ -166,6 +166,81 @@ body {
     text-align: left;
 }
 
+.history-item {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    color: var(--text-white);
+    padding: 12px 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 0.7fr;
+    gap: 12px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.history-item:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.history-topic {
+    color: var(--text-white);
+}
+
+.history-date {
+    color: var(--text-gray);
+}
+
+.history-avg {
+    color: var(--hbtn-red);
+    text-align: right;
+}
+
+.history-details {
+    display: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    margin: 0 0 16px 0;
+}
+
+.history-details.open {
+    display: block;
+}
+
+.history-subtopic {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-gray);
+}
+
+.history-subtopic strong {
+    color: var(--text-white);
+}
+
+.history-comment {
+    margin-top: 12px;
+    color: var(--text-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.history-comment strong {
+    color: var(--text-white);
+}
+
+.history-empty {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    padding: 6px 0;
+}
+
 .star-decor {
             position: absolute;
             bottom: 30px;
