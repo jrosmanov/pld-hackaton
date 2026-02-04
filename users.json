@@ -6,73 +6,31 @@
             "program": "FS"
         },
         "history": {
+            "sil-1": 4.0,
+            "TEST1": 10.0,
+            "DUPLICATE-TEST": 10.0,
+            "OOP": 8.3,
+            "oop": 10.0,
             "Python Basics": 8,
             "SQL Databases": 7,
             "Advanced JS": 9,
             "C ++ FUndamentals": 9.5,
             "Telebot": 8.0,
             "ORM": 9.3,
-            "Salam": 10.0,
-            "TEST1": 10.0,
-            "DUPLICATE-TEST": 10.0,
-            "OOP": 8.3,
-            "oop": 10.0
+            "Salam": 10.0
         },
         "stats": {
-            "total_plds": 18,
-            "avg_score": 9.3
-        },
-        "last_pld": {
-            "date": "2026-02-03",
-            "topic": "oop",
-            "grades": {
-                "1": 10,
-                "2": 10
-            },
-            "avg": 10.0
+            "total_plds": 19,
+            "avg_score": 9.0
         },
         "history_list": [
             {
-                "date": null,
-                "topic": "Python Basics",
-                "avg": 8,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "SQL Databases",
-                "avg": 7,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "Advanced JS",
-                "avg": 9,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "C ++ FUndamentals",
-                "avg": 9.5,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "Telebot",
-                "avg": 8.0,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "ORM",
-                "avg": 9.3,
-                "grades": {}
-            },
-            {
-                "date": null,
-                "topic": "Salam",
-                "avg": 10.0,
-                "grades": {}
+                "date": "2026-02-04",
+                "topic": "sil-1",
+                "avg": 4.0,
+                "grades": {
+                    "123": 4.0
+                }
             },
             {
                 "date": "2026-02-03",
@@ -166,8 +124,58 @@
                     "1": 10,
                     "2": 10
                 }
+            },
+            {
+                "date": null,
+                "topic": "Python Basics",
+                "avg": 8,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "SQL Databases",
+                "avg": 7,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Advanced JS",
+                "avg": 9,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "C ++ FUndamentals",
+                "avg": 9.5,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Telebot",
+                "avg": 8.0,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "ORM",
+                "avg": 9.3,
+                "grades": {}
+            },
+            {
+                "date": null,
+                "topic": "Salam",
+                "avg": 10.0,
+                "grades": {}
             }
-        ]
+        ],
+        "last_pld": {
+            "date": "2026-02-04",
+            "topic": "sil-1",
+            "grades": {
+                "123": 4.0
+            },
+            "avg": 4.0
+        }
     },
     "11223": {
         "profile": {

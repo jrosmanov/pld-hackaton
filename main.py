@@ -404,7 +404,32 @@ def clear_last_pld():
             cleared = 0
             for sid in student_ids:
                 if sid in db and 'last_pld' in db[sid]:
-                    db[sid].pop('last_pld', None)
+                    student = db[sid]
+                    last_pld = student.pop('last_pld', None)
+                    if last_pld:
+                        history_list = ensure_history_list(student)
+                        last_topic = last_pld.get('topic')
+                        last_date = last_pld.get('date')
+                        last_signature = grades_signature(last_pld.get('grades', {}))
+                        history_list[:] = [
+                            entry for entry in history_list
+                            if not (
+                                entry.get('topic') == last_topic
+                                and normalize_date(entry.get('date')) == normalize_date(last_date)
+                                and grades_signature(entry.get('grades', {})) == last_signature
+                            )
+                        ]
+                        if history_list:
+                            history_list.sort(key=lambda x: parse_date(x.get('date')) or datetime.min.date(), reverse=True)
+                            latest = history_list[0]
+                            student['last_pld'] = {
+                                "date": latest.get('date'),
+                                "topic": latest.get('topic'),
+                                "grades": latest.get('grades', {}),
+                                "avg": latest.get('avg') or compute_avg(latest.get('grades', {}))
+                            }
+                        rebuild_history_map(student)
+                        rebuild_stats(student)
                     cleared += 1
 
             f.seek(0)
