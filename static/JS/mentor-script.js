@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentsGrid = document.getElementById('comments-grid');
     const overallAverageEl = document.getElementById('overall-average');
     const statusEl = document.getElementById('pld-status');
+    const addStudentError = document.getElementById('student-add-error');
     const summaryEl = document.getElementById('pld-summary');
     const resetBtn = document.getElementById('reset-form');
     const clearLastBtn = document.getElementById('clear-last');
@@ -24,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const setStatus = (message, isError = false) => {
         statusEl.textContent = message;
         statusEl.style.color = isError ? 'var(--hbtn-red)' : 'var(--text-gray)';
+    };
+
+    const setAddStudentError = (message = '') => {
+        if (!addStudentError) return;
+        addStudentError.textContent = message;
     };
 
     const setSummary = (message) => {
@@ -275,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const validateForm = () => {
         clearErrors();
+        setAddStudentError('');
         const topic = topicInput.value.trim();
         const subtopics = getSubtopics();
         const students = getSelectedStudents();
@@ -347,6 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
         studentsList.innerHTML = '';
         scoresGrid.innerHTML = '';
         overallAverageEl.textContent = '0.0';
+        setAddStudentError('');
         addSubtopicRow();
         addStudentRow();
         refreshStudentOptions();
@@ -394,6 +402,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addStudentBtn.addEventListener('click', () => {
+        const selectedCount = studentsList.querySelectorAll('.pld-item').length;
+        if (studentOptions.length && selectedCount >= studentOptions.length) {
+            setAddStudentError('No more students');
+            return;
+        }
+        setAddStudentError('');
         addStudentRow();
         refreshStudentOptions();
         rebuildGrid();
